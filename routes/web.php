@@ -2,9 +2,11 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
-use App\Models\Peminjaman;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use App\Models\Buku;
+use App\Models\User;
+use App\Models\Peminjaman;
 use App\Models\Pemberitahuan;
 
 
@@ -60,7 +62,7 @@ Route::prefix('user')->group(function() {
         return view('user.profil');
     })->name('user.profil');
 
-    Route::put('profil', function(){
+    Route::put('profil', function(Request $request){
         $id = Auth::user()->id;
 
         $imageName = time() . '.' .$request->foto->extension();
