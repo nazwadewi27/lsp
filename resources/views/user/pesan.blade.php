@@ -1,5 +1,5 @@
 @extends('layouts.app')
 
 @section
-@include('component.user.sidebar')
+@include('components.user.sidebar')
 @endsection

@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-        @include('component.user.sidebar')
+        @include('components.user.sidebar')
 
         <div class="card">
             <div class="card-header">
@@ -20,7 +20,7 @@
                     <select name="buku_id" class="form-select">
                         <option value="" disabled selected>--Pilih Opsi--</option>
                         @foreach ($buku as $b)
-                            <option value="{{ $b->id }}" {{ isset($buku_id ? $buku_id == $b->id ? "selected" : "" :) }}>{{ $b->judul }}</option>
+                            <option value="{{ $b->id }}" {{ isset($buku_id) ? $buku_id == $b->id ? "selected" : "" : "" }}>{{ $b->judul }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -31,8 +31,8 @@
                         <option value="rusak">Rusak</option>
                     </select>
                 </div>
-                <input type="hidden" value="{{ Auth::user()-> }}" name="user_id">
-                <button class="btn btn-primary">Submit</button>
+                <input type="hidden" value="{{ Auth::user()->id }}" name="user_id">
+                <button class="btn btn-primary text-white" type="submit">Submit</button>
                 </form>
             </div>
         </div>

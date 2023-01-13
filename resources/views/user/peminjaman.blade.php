@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-        @include('component')
+        @include('components.user.sidebar')
 
         <div class="row">
             <div class="col">

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
     <div class="container">
-        @include('component.user.sidebar')
+        @include('components.user.sidebar')
 
         @if (session('status'))
             <div class="alert alert{{ session('status') }}">

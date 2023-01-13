@@ -1,5 +1,4 @@
 @extends('layouts.app')
-
 @section('content')
-    @include('components.user.sidebar')
+@include('component.admin.sidebar')
 @endsection
