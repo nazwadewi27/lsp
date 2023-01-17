@@ -9,7 +9,11 @@ class Penerbit extends Model
 {
     use HasFactory;
 
-    protected $fillable = [];
+    protected $fillable = [
+        'kode',
+        'nama',
+        'verif'
+    ];
 
     public function bukus(){
         return $this->hasMany(Buku::class);

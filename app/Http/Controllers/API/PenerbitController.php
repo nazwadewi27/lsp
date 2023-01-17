@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Models\Penerbit;
 use Illuminate\Http\Request;
+use App\Models\Buku;
+use App\Models\Penerbit;
 
 class PenerbitController extends Controller
 {
@@ -21,7 +22,7 @@ class PenerbitController extends Controller
                 'data' => 'not found'
             ]);
             return response()->json([
-                'data' => '$penerbit',
+                'data' => $penerbit
             ]);
         }
     }
@@ -34,10 +35,10 @@ class PenerbitController extends Controller
      */
     public function store(Request $request)
     {
-        $penerbit = Penerbit::penerbit($request->all());
+        $penerbit = Penerbit::create($request->all());
         if(!$penerbit){
             return response()->json([
-                'data' => 'failed to store',
+                'data' => 'failed to store'
             ]);
             return response()->json([
                 'data' => $penerbit
@@ -68,10 +69,14 @@ class PenerbitController extends Controller
         $penerbit = Penerbit::findOrFail($id);
         $penerbit->update($request->all());
 
-        return response([
-            'data'=> $penerbit,
-            'message' => 'Berhasil Menambah data'
-        ]);
+        if(!$penerbit){
+            return response()->json([
+                'data' => 'the data failed to update'
+            ]);
+            return response()->json([
+                'data' => $penerbit,
+            ]);
+        }
     }
 
     /**
@@ -84,10 +89,10 @@ class PenerbitController extends Controller
     {
         $penerbit = Penerbit::findOrFail($id);
         $deleted = $penerbit->delete();
-        
-        if(!$deleted) {
+
+        if(!$deleted){
             return response()->json([
-                'data' => 'Berhasil menghapus data'
+                'data' => 'delete successfully'
             ]);
         }
     }

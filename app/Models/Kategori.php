@@ -10,7 +10,8 @@ class Kategori extends Model
     use HasFactory;
 
     protected $fillable = [
-
+        'kode',
+        'nama'
     ];
 
     public function bukus(){

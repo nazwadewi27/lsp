@@ -18,10 +18,10 @@ class KategoriController extends Controller
         $kategori = Kategori::all();
         if(!$kategori){
             return response()->json([
-                'data' => 'not found'
+                'data' => 'not found',
             ]);
             return response()->json([
-                'data' => '$kategori',
+                'data' => $kategori
             ]);
         }
     }
@@ -34,10 +34,10 @@ class KategoriController extends Controller
      */
     public function store(Request $request)
     {
-        $kategori = Kategori::penerbit($request->all());
+        $kategori = Kategori::create($request->all());
         if(!$kategori){
             return response()->json([
-                'data' => 'failed to store',
+                'data'=> 'The data is failed to store'
             ]);
             return response()->json([
                 'data' => $kategori
@@ -68,9 +68,9 @@ class KategoriController extends Controller
         $kategori = Kategori::findOrFail($id);
         $kategori->update($request->all());
 
-        return response([
-            'data'=> $kategori,
-            'message' => 'Berhasil Menambah data'
+        return response()->json([
+            'data' => $kategori,
+            'message' => 'berhasil'
         ]);
     }
 
@@ -82,12 +82,12 @@ class KategoriController extends Controller
      */
     public function destroy($id)
     {
-        $kategori = Kategori::findOrFail($id);
+        $kategori = Kategori::find($id);
         $deleted = $kategori->delete();
-        
-        if(!$deleted) {
+
+        if($deleted){
             return response()->json([
-                'data' => 'Berhasil menghapus data'
+                'data' => 'delete successfully'
             ]);
         }
     }
