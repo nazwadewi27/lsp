@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Models\Kategori;
 use Illuminate\Http\Request;
 
 class KategoriController extends Controller
@@ -14,7 +15,15 @@ class KategoriController extends Controller
      */
     public function index()
     {
-        //
+        $kategori = Kategori::all();
+        if(!$kategori){
+            return response()->json([
+                'data' => 'not found'
+            ]);
+            return response()->json([
+                'data' => '$kategori',
+            ]);
+        }
     }
 
     /**
@@ -25,7 +34,15 @@ class KategoriController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $kategori = Kategori::penerbit($request->all());
+        if(!$kategori){
+            return response()->json([
+                'data' => 'failed to store',
+            ]);
+            return response()->json([
+                'data' => $kategori
+            ]);
+        }
     }
 
     /**
@@ -48,7 +65,13 @@ class KategoriController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $kategori = Kategori::findOrFail($id);
+        $kategori->update($request->all());
+
+        return response([
+            'data'=> $kategori,
+            'message' => 'Berhasil Menambah data'
+        ]);
     }
 
     /**
@@ -59,6 +82,13 @@ class KategoriController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $kategori = Kategori::findOrFail($id);
+        $deleted = $kategori->delete();
+        
+        if(!$deleted) {
+            return response()->json([
+                'data' => 'Berhasil menghapus data'
+            ]);
+        }
     }
 }

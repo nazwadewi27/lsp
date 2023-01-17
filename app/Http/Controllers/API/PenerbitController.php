@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Models\Penerbit;
 use Illuminate\Http\Request;
 
 class PenerbitController extends Controller
@@ -14,7 +15,15 @@ class PenerbitController extends Controller
      */
     public function index()
     {
-        //
+        $penerbit = Penerbit::all();
+        if(!$penerbit){
+            return response()->json([
+                'data' => 'not found'
+            ]);
+            return response()->json([
+                'data' => '$penerbit',
+            ]);
+        }
     }
 
     /**
@@ -25,7 +34,15 @@ class PenerbitController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $penerbit = Penerbit::penerbit($request->all());
+        if(!$penerbit){
+            return response()->json([
+                'data' => 'failed to store',
+            ]);
+            return response()->json([
+                'data' => $penerbit
+            ]);
+        }
     }
 
     /**
@@ -48,7 +65,13 @@ class PenerbitController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $penerbit = Penerbit::findOrFail($id);
+        $penerbit->update($request->all());
+
+        return response([
+            'data'=> $penerbit,
+            'message' => 'Berhasil Menambah data'
+        ]);
     }
 
     /**
@@ -59,6 +82,13 @@ class PenerbitController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $penerbit = Penerbit::findOrFail($id);
+        $deleted = $penerbit->delete();
+        
+        if(!$deleted) {
+            return response()->json([
+                'data' => 'Berhasil menghapus data'
+            ]);
+        }
     }
 }
