@@ -14,7 +14,15 @@ class PemberitahuanController extends Controller
      */
     public function index()
     {
-        //
+        $pemberitahuan = Pemberitahuan::all();
+        if(!$pemberitahuan){
+            return response()->json([
+                'data' => 'not found',
+            ]);
+        }
+        return response()->json([
+            'data' => $pemberitahuan
+        ]);
     }
 
     /**
@@ -35,7 +43,16 @@ class PemberitahuanController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $pemberitahuan = Pemberitahuan::create($request->all());
+        
+        if(!$pemberitahuan){
+            return response()->json([
+                'data' => 'failed tp store data',
+            ]);
+        }
+        return response()->json([
+            'data' => $pemberitahuan
+        ]);
     }
 
     /**
@@ -69,7 +86,12 @@ class PemberitahuanController extends Controller
      */
     public function update(Request $request, Pemberitahuan $pemberitahuan)
     {
-        //
+        $pemberitahuan = Pemberitahuan::findOrFail($id);
+        $pemberitahuan->update($request->all());
+
+        return response()->json([
+            'data' => $pemberitahuan
+        ]);
     }
 
     /**
@@ -80,6 +102,13 @@ class PemberitahuanController extends Controller
      */
     public function destroy(Pemberitahuan $pemberitahuan)
     {
-        //
+        $pemberitahuan = Pemberitahuan::find($id);
+        $deleted = $pemberitahuan->delete();
+
+        if($deleted){
+            return response()->json([
+                'data' => 'delete successfully'
+            ]);
+        }
     }
 }

@@ -14,7 +14,16 @@ class PenerbitController extends Controller
      */
     public function index()
     {
-        //
+        $penerbit = Penerbit::all();
+        
+        if(!$penerbit){
+            return response()->json([
+                'data' => 'not found',
+            ]);
+        }
+        return response()->json([
+            'data' => $penerbit
+        ]);
     }
 
     /**
@@ -35,7 +44,16 @@ class PenerbitController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $penerbit = Penerbit::create($request->all());
+
+        if(!$penerbit){
+            return response()->json([
+                'data' => 'failed to store'
+            ]);
+        }
+        return response()->json([
+            'data' => 'successfully store data'
+        ]); 
     }
 
     /**
@@ -69,7 +87,12 @@ class PenerbitController extends Controller
      */
     public function update(Request $request, Penerbit $penerbit)
     {
-        //
+        $penerbit = Penerbit::findOrFail($id);
+        $penerbi->update($request->all());
+
+        return response()->json([
+            'data' => $penerbit
+        ]);
     }
 
     /**
@@ -80,6 +103,13 @@ class PenerbitController extends Controller
      */
     public function destroy(Penerbit $penerbit)
     {
-        //
+        $penerbit = Penerbit::findOrFail($id);
+        $deleted = $penerbit->delete();
+
+        if(!$deleted){
+            return  response()->json([
+                'data' => 'successfully deleted',
+            ]);
+        }
     }
 }

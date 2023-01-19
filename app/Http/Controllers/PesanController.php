@@ -14,7 +14,11 @@ class PesanController extends Controller
      */
     public function index()
     {
-        //
+        $pesan = Pesan::all();
+
+        return response()->json([
+            'data' => $pesan,
+        ]);
     }
 
     /**
@@ -35,7 +39,16 @@ class PesanController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $pesan = Pesan::create($request->all());
+
+        if(!$pesan){
+            return response()->json([
+                'data' => 'failed to store'
+            ]);
+        }
+        return response()->json([
+            'data' => 'successfully stored'
+        ]);
     }
 
     /**
@@ -69,7 +82,12 @@ class PesanController extends Controller
      */
     public function update(Request $request, Pesan $pesan)
     {
-        //
+        $penerbit = Penerbit::findOrFail($id);
+        $penerbit->update($request->all());
+
+            return response()->json([
+                'data' => $penerbit
+            ]);
     }
 
     /**

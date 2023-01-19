@@ -15,7 +15,7 @@ class Peminjaman extends Model
         "buku_id",
         "user_id",
         "kondisi_buku_saat_dipinjam",
-        "kondisi_buku_saat_dikembalikan",
+        "kondisi_buku_saat_dikembalikan"
     ];
 
     protected $table = 'Peminjamans';

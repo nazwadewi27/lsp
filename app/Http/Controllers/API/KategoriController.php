@@ -20,10 +20,10 @@ class KategoriController extends Controller
             return response()->json([
                 'data' => 'not found',
             ]);
-            return response()->json([
-                'data' => $kategori
-            ]);
         }
+        return response()->json([
+            'data' => $kategori
+        ]);
     }
 
     /**
@@ -39,10 +39,10 @@ class KategoriController extends Controller
             return response()->json([
                 'data'=> 'The data is failed to store'
             ]);
-            return response()->json([
-                'data' => $kategori
-            ]);
         }
+        return response()->json([
+            'data' => $kategori
+        ]);
     }
 
     /**
@@ -65,7 +65,7 @@ class KategoriController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $kategori = Kategori::findOrFail($id);
+        $kategori = Kategori::find($id);
         $kategori->update($request->all());
 
         return response()->json([
