@@ -98,6 +98,16 @@ class PesanController extends Controller
      */
     public function destroy(Pesan $pesan)
     {
-        //
+        $penerbit = Penerbit::findOrfail($id);
+        $deleted = $penerbit->delete();
+
+        if(!$deleted){
+            return response()->json([
+                'data' => 'failed to delete'
+            ]);
+            return response()->json([
+                'data' => 'successfully deleted'
+            ]);
+        }
     }
 }
