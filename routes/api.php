@@ -53,4 +53,31 @@ Route::controller(App\Http\Controller\API\PenerbitController::class)->prefix('/p
     Route::delete('/delete/{id}','destroy');
 });
 
+Route::controller(App\Http\Controller\API\Peminjaman::class)->prefix('/peminjaman')->group(function(){
+    Route::get('/', 'index');
+    Route::post('/add','store');
+    Route::put('/edit/{id}','update');
+    Route::delete('/delete/{id}','destroy');
+});
+
+Route::controller(App\Http\Controller\API\Pemberitahuan::class)->prefix('/pemberitahuan')->group(function(){
+    Route::get('/', 'index');
+    Route::post('/add','store');
+    Route::put('/edit/{id}','update');
+    Route::delete('/delete/{id}','destroy');
+});
+
+Route::controller(App\Http\Controller\API\Pesan::class)->prefix('/pesan')->group(function(){
+    Route::get('/', 'index');
+    Route::post('/add','store');
+    Route::put('/edit/{id}','update');
+    Route::delete('/delete/{id}','destroy');
+});
+
+Route::controller(App\Http\Controller\API\Identitas::class)->prefix('/identitas')->group(function(){
+    Route::get('/', 'index');
+    Route::post('/add','store');
+    Route::put('/edit/{id}','update');
+    Route::delete('/delete/{id}','destroy');
+});
 

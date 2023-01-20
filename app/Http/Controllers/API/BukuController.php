@@ -89,9 +89,12 @@ class BukuController extends Controller
         $buku = Buku::findOrFail($id);
         $deleted = $buku->delete();
 
-        if($deleted){
+        if(!$deleted){
             return response()->json([
-                'data' => 'delete successfully'
+                'data' => 'failed to delete'
+            ]);
+            return response()->json([
+                'data' => 'successfully delete data'
             ]);
         }
     }

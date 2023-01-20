@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Pesan;
 
 class PesanController extends Controller
 {
@@ -85,7 +86,7 @@ class PesanController extends Controller
                 'data' => 'failed to delete'
             ]);
             return response()->json([
-                'data' => 'successfully '
+                'data' => 'successfully data'
             ]);
         }
     }
