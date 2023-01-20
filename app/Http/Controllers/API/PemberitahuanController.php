@@ -5,7 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class PeminjamanController extends Controller
+class PemberitahuanController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,14 +14,14 @@ class PeminjamanController extends Controller
      */
     public function index()
     {
-        $peminjaman = Peminjaman::all();
-        if(!$peminjaman){
+        $pemberitahuan = Pemberitahuan::all();
+        if(!$pemberitahuan){
             return response()->json([
                 'data' => 'not found',
             ]);
         }
         return response()->json([
-            'data' => $peminjaman
+            'data' => $pemberitahuan
         ]);
     }
 
@@ -33,15 +33,15 @@ class PeminjamanController extends Controller
      */
     public function store(Request $request)
     {
-        $peminjaman = Peminjaman::create($request->all());
-        if(!$peminjaman){
+        $pemberitahuan = Pemberitahuan::create($request->all());
+        
+        if(!$pemberitahuan){
             return response()->json([
-                'data' => 'The data is failed to store',
+                'data' => 'failed tp store data',
             ]);
         }
         return response()->json([
-            'data' => $peminjaman,
-            'messages' => 'data successfully created'
+            'data' => $pemberitahuan
         ]);
     }
 
@@ -65,12 +65,11 @@ class PeminjamanController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $peminjaman = Peminjaman::findOrFail($id);
-        $peminjaman->update($request->all());
+        $pemberitahuan = Pemberitahuan::findOrFail($id);
+        $pemberitahuan->update($request->all());
 
         return response()->json([
-            'data' => $peminjaman,
-            'message' => 'berhasil'
+            'data' => $pemberitahuan
         ]);
     }
 
@@ -82,8 +81,8 @@ class PeminjamanController extends Controller
      */
     public function destroy($id)
     {
-        $peminjaman = Peminjaman::find($id);
-        $deleted = $peminjaman->delete();
+        $pemberitahuan = Pemberitahuan::find($id);
+        $deleted = $pemberitahuan->delete();
 
         if($deleted){
             return response()->json([

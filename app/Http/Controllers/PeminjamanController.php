@@ -14,15 +14,7 @@ class PeminjamanController extends Controller
      */
     public function index()
     {
-        $peminjaman = Peminjaman::all();
-        if(!$peminjaman){
-            return response()->json([
-                'data' => 'not found',
-            ]);
-        }
-        return response()->json([
-            'data' => $peminjaman
-        ]);
+        //
     }
 
     /**
@@ -43,16 +35,7 @@ class PeminjamanController extends Controller
      */
     public function store(Request $request)
     {
-        $peminjaman = Peminjaman::create($request->all());
-        if(!$peminjaman){
-            return response()->json([
-                'data' => 'The data is failed to store',
-            ]);
-        }
-        return response()->json([
-            'data' => $peminjaman,
-            'messages' => 'data successfully created'
-        ]);
+        //
     }
 
     /**
@@ -86,13 +69,7 @@ class PeminjamanController extends Controller
      */
     public function update(Request $request, Peminjaman $peminjaman)
     {
-        $peminjaman = Peminjaman::findOrFail($id);
-        $peminjaman->update($request->all());
-
-        return response()->json([
-            'data' => $peminjaman,
-            'message' => 'berhasil'
-        ]);
+        //
     }
 
     /**
@@ -103,13 +80,6 @@ class PeminjamanController extends Controller
      */
     public function destroy(Peminjaman $peminjaman)
     {
-        $peminjaman = Peminjaman::find($id);
-        $deleted = $peminjaman->delete();
-
-        if($deleted){
-            return response()->json([
-                'data' => 'delete successfully'
-            ]);
-        }
+        //
     }
 }

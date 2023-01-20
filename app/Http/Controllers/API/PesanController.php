@@ -5,7 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class PeminjamanController extends Controller
+class PesanController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,14 +14,10 @@ class PeminjamanController extends Controller
      */
     public function index()
     {
-        $peminjaman = Peminjaman::all();
-        if(!$peminjaman){
-            return response()->json([
-                'data' => 'not found',
-            ]);
-        }
+        $pesan = Pesan::all();
+
         return response()->json([
-            'data' => $peminjaman
+            'data' => $pesan,
         ]);
     }
 
@@ -33,15 +29,15 @@ class PeminjamanController extends Controller
      */
     public function store(Request $request)
     {
-        $peminjaman = Peminjaman::create($request->all());
-        if(!$peminjaman){
+        $pesan = Pesan::create($request->all());
+
+        if(!$pesan){
             return response()->json([
-                'data' => 'The data is failed to store',
+                'data' => 'failed to store'
             ]);
         }
         return response()->json([
-            'data' => $peminjaman,
-            'messages' => 'data successfully created'
+            'data' => 'successfully stored'
         ]);
     }
 
@@ -65,13 +61,12 @@ class PeminjamanController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $peminjaman = Peminjaman::findOrFail($id);
-        $peminjaman->update($request->all());
+        $penerbit = Penerbit::findOrFail($id);
+        $penerbit->update($request->all());
 
-        return response()->json([
-            'data' => $peminjaman,
-            'message' => 'berhasil'
-        ]);
+            return response()->json([
+                'data' => $penerbit
+            ]);
     }
 
     /**
@@ -82,12 +77,15 @@ class PeminjamanController extends Controller
      */
     public function destroy($id)
     {
-        $peminjaman = Peminjaman::find($id);
-        $deleted = $peminjaman->delete();
+        $penerbit = Penerbit::findOrfail($id);
+        $deleted = $penerbit->delete();
 
-        if($deleted){
+        if(!$deleted){
             return response()->json([
-                'data' => 'delete successfully'
+                'data' => 'failed to delete'
+            ]);
+            return response()->json([
+                'data' => 'successfully '
             ]);
         }
     }
