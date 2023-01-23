@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\user\DashboardController;
+use App\Http\Controllers\user\PeminjamanController;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use App\Models\Buku;
@@ -31,35 +33,12 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::prefix('user')->group(function() {
 
-    Route::get('/dashboard', function() {
-        $pemberitahuan = Pemberitahuan::where('status', 'aktif')->get();
-        $buku = Buku::all();
-
-        return view('user.dashboard', compact('pemberitahuan', 'buku'));
-    })->name('user.dashboard');
-
-    Route::get('/peminjaman', function(){
-        $peminjaman = Peminjaman::where('user_id', Auth::user()->id)->get();
-        
-        return view('user.peminjaman', compact('peminjaman'));  
-    })->name('user.peminjaman');
-
-    Route::post('/form_peminjaman', function (Request $request) {
-        $buku_id = $request->buku_id;
-        $buku = Buku::all();
-
-        return view('user.form_peminjaman',  compact('buku_id', 'buku'));
-    })->name('user.form_peminjaman_dashboard');
-
-    Route::post('submit_peminjaman', function(Request $request){
-        $peminjaman = Peminjaman::create($request->all());
-
-        if($peminjaman) {
-            return redirect()->route('user.peminjaman')->with('status', 'success')->with('message', 'Berhasil menambah data');
-        }
-
-        return redirect()->back()->with('status', 'danger')->with('message', 'Gagal menambah data ');
-    });
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('user.dashboard');
+    Route::get('/peminjaman/riwayat', [PeminjamanController::class, 'index'])->name('user.peminjaman');
+    Route::get('/form_peminjaman', [PeminjamanController::class, 'indexForm'])->name('user.form_peminjaman_dashboard');
+    Route::post('/form_peminjaman', [PeminjamanController::class, 'form']);
+    Route::post('/peminjaman/submit', [PeminjamanController::class, 'store'])->name('submit.peminjaman');
+    
 
     Route::get('/pengembalian', function(){
         return view('user.pengembalian');
@@ -72,31 +51,6 @@ Route::prefix('user')->group(function() {
     Route::get('/profil', function(){
         return view('user.profil');
     })->name('user.profil');
-
-    Route::put('profil', function(Request $request){
-        $id = Auth::user()->id;
-
-        $imageName = time() . '.' .$request->foto->extension();
-
-        $request->foto->move(public_path('img'), $imageName);
-
-        $user = User::find($id)->update($request->all());
-
-        if($request->password != null){
-            $user2 = User::find($id)->update([
-                'password' => Hash::make($request->password)
-            ]);
-        }
-
-        $user3 = User::find($id)->update([
-            'foto' => $imageName
-        ]);
-
-        if ($user && $user2 && $user3) {
-            return redirect()->back()->with('status', 'succsess')->with('message','berhasil mengupdate profil');
-        } 
-        return redirect()->back()->with('status', 'danger')->with('message', 'gagal mengupdate profile');
-    })->name('user.profil.update');
 });
 
 Route::prefix('/admin')->group(function(){
