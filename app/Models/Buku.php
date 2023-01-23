@@ -9,7 +9,7 @@ class Buku extends Model
 {
     use HasFactory;
 
-    protected $fillabel = [
+    protected $fillable = [
         'foto',
         'judul',
         'kategori_id',

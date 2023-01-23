@@ -4,13 +4,8 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\user\DashboardController;
 use App\Http\Controllers\user\PeminjamanController;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Http\Request;
-use App\Models\Buku;
-use App\Models\User;
-use App\Models\Peminjaman;
-use App\Models\Pemberitahuan;
-use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
+use App\Http\Controllers\user\PengembalianController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -34,15 +29,13 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::prefix('user')->group(function() {
 
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('user.dashboard');
-    Route::get('/peminjaman/riwayat', [PeminjamanController::class, 'index'])->name('user.peminjaman');
-    Route::get('/form_peminjaman', [PeminjamanController::class, 'indexForm'])->name('user.form_peminjaman_dashboard');
-    Route::post('/form_peminjaman', [PeminjamanController::class, 'form']);
-    Route::post('/peminjaman/submit', [PeminjamanController::class, 'store'])->name('submit.peminjaman');
-    
-
-    Route::get('/pengembalian', function(){
-        return view('user.pengembalian');
-    })->name('user.pengembalian');
+    Route::get('/peminjaman/riwayat', [PeminjamanController::class , 'riwayatPeminjaman'])->name('user.riwayat.peminjaman');
+    Route::get('/form_peminjaman' , [PeminjamanController::class , 'indexForm'])->name('user.form.peminjaman');
+    Route::post('/form_peminjaman' , [PeminjamanController::class , 'form']);
+    Route::post('/peminjaman/submit' , [PeminjamanController::class , 'store'])->name('submit.peminjaman');
+    Route::get('/pengembalian', [PengembalianController::class, 'index'])->name('user.pengembalian');
+    Route::get('/pengembalian/riwayat', [PengembalianController::class, 'riwayatPengembalian'])->name('user.riwayat.pengembalian');
+    Route::post('/pengembalian/submit' , [PengembalianController::class , 'store'])->name('submit.pengembalian');
 
     Route::get('/pesan', function(){
         return view('user.pesan');

@@ -9,7 +9,7 @@
                 <h4>Form Peminjaman</h4>
             </div>
             <div class="card-body">
-                <form action="{{ route('user.submit_peminjaman')}}" method="POST" class="form-group">
+                <form action="{{ route('submit.peminjaman')}}" method="POST" class="form-group">
                 @csrf
                 <div class="mb-3">
                     <label for="">Tanggal Peminjaman</label>
@@ -19,8 +19,8 @@
                     <label for="">Pilih Buku</label>
                     <select name="buku_id" class="form-select">
                         <option value="" disabled selected>--Pilih Opsi--</option>
-                        @foreach ($buku as $b)
-                            <option value="{{ $b->id }}" {{ isset($buku_id) ? $buku_id == $b->id ? "selected" : "" : "" }}>{{ $b->judul }}</option>
+                        @foreach($buku as $b) 
+                        <option value="{{$b->id}}" {{ isset($buku_id) ? $buku_id ==$b->id ? "selected" : "" : "" }} >{{$b->judul}}</option>
                         @endforeach
                     </select>
                 </div>
